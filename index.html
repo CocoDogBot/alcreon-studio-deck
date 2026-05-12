@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alcreon Studio — Pitch (Revised)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #FAF7EF;
+    --ink: #111111;
+    --muted: #6B6B6B;
+    --line: #E5E0D5;
+    --card: #FFFFFF;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+  }
+  .slide {
+    width: 100vw;
+    min-height: 100vh;
+    padding: 80px 96px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    scroll-snap-align: start;
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .corners::before, .corners::after,
+  .corners > .br-left::before, .corners > .br-right::before {
+    content: '';
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border: 1.5px solid var(--ink);
+  }
+  .corners::before { top: 48px; left: 56px; border-right: none; border-bottom: none; }
+  .corners::after { top: 48px; right: 56px; border-left: none; border-bottom: none; }
+  .corners > .br-left::before { bottom: 48px; left: 56px; border-right: none; border-top: none; }
+  .corners > .br-right::before { bottom: 48px; right: 56px; border-left: none; border-top: none; }
+
+  .num {
+    position: absolute;
+    top: 56px;
+    right: 96px;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    font-weight: 500;
+  }
+  .eyebrow {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+  h1.hero {
+    font-size: clamp(56px, 7vw, 128px);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 0.96;
+    text-align: center;
+  }
+  h1 {
+    font-size: clamp(48px, 5vw, 88px);
+    font-weight: 800;
+    letter-spacing: -0.028em;
+    line-height: 1.0;
+    margin-bottom: 24px;
+    max-width: 1500px;
+  }
+  .hero-sub {
+    margin-top: 28px;
+    font-size: clamp(18px, 1.3vw, 24px);
+    color: var(--ink);
+    text-align: center;
+  }
+  .hero-sub .muted { color: var(--muted); }
+  .body {
+    font-size: clamp(18px, 1.3vw, 24px);
+    color: var(--muted);
+    max-width: 1100px;
+    line-height: 1.45;
+  }
+  .body strong { color: var(--ink); font-weight: 600; }
+  .center { align-items: center; text-align: center; justify-content: center; }
+
+  /* Artifact preview */
+  .artifact {
+    margin-top: 48px;
+    width: 72%;
+    max-width: 1100px;
+    aspect-ratio: 16 / 10;
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: 0 24px 60px -20px rgba(0,0,0,0.18);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    overflow: hidden;
+    position: relative;
+  }
+  .artifact-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 30px;
+    background: #F2EEE3;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    gap: 6px;
+  }
+  .artifact-bar span {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #D9D3C5;
+  }
+  .artifact-inner {
+    text-align: center;
+    padding: 40px 24px;
+  }
+  .artifact-inner .stamp {
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .artifact-inner .hed {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .artifact-inner .sub {
+    font-size: 15px;
+    color: var(--muted);
+  }
+
+  /* 4-col pillars */
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-top: 56px;
+  }
+  .pillar {
+    border-top: 1.5px solid var(--ink);
+    padding-top: 20px;
+  }
+  .pillar .label {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .pillar h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.015em;
+  }
+  .pillar p {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* 2-col monthly */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin-top: 40px;
+    border-top: 1px solid var(--line);
+  }
+  .feature {
+    padding: 36px 0 36px 0;
+    border-bottom: 1px solid var(--line);
+    padding-right: 48px;
+  }
+  .feature:nth-child(odd) {
+    border-right: 1px solid var(--line);
+    padding-right: 64px;
+  }
+  .feature:nth-child(even) {
+    padding-left: 64px;
+  }
+  .feature h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: -0.015em;
+  }
+  .feature p {
+    color: var(--muted);
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  /* 3-col pain */
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 56px;
+    margin-top: 48px;
+  }
+  .pain {
+    border-top: 1.5px solid var(--ink);
+    padding-top: 24px;
+  }
+  .pain h3 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    letter-spacing: -0.015em;
+  }
+  .pain p {
+    color: var(--muted);
+    font-size: 17px;
+    line-height: 1.5;
+  }
+
+  /* Pricing */
+  .pricing {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+  .tier {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 36px 32px;
+    background: rgba(255,255,255,0.5);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .tier.recommended {
+    border: 1.5px solid var(--ink);
+    background: var(--card);
+  }
+  .tier .badge {
+    position: absolute;
+    top: -13px;
+    left: 28px;
+    background: var(--ink);
+    color: white;
+    font-size: 11px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .tier h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .tier .price {
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 4px;
+    line-height: 1.0;
+  }
+  .tier .price-sub {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  .tier .blurb {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 24px;
+    line-height: 1.45;
+    min-height: 60px;
+  }
+  .tier ul {
+    list-style: none;
+    margin-top: auto;
+    border-top: 1px solid var(--line);
+    padding-top: 16px;
+  }
+  .tier li {
+    font-size: 14.5px;
+    color: var(--ink);
+    padding: 8px 0;
+    line-height: 1.4;
+    display: flex;
+    align-items: flex-start;
+  }
+  .tier li::before {
+    content: '–';
+    color: var(--muted);
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+
+  /* Steps */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    margin-top: 40px;
+    border-top: 1px solid var(--line);
+    padding-top: 36px;
+  }
+  .step .num-step {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 18px;
+    letter-spacing: 0.08em;
+  }
+  .step h3 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.015em;
+  }
+  .step p {
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* Stats row */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    margin-top: 56px;
+    border-top: 1px solid var(--line);
+    padding-top: 32px;
+  }
+  .stat .name {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .stat .role {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  /* CTA */
+  .cta-flex {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 72px;
+    margin-top: 32px;
+    align-items: start;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: var(--ink);
+    color: white;
+    padding: 18px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-top: 12px;
+  }
+  .cta-secondary {
+    color: var(--muted);
+    font-size: 16px;
+    margin-top: 16px;
+  }
+  .cta-secondary a { color: var(--ink); text-decoration: underline; }
+  .scarcity {
+    margin-top: 40px;
+    padding: 20px 24px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.4);
+    font-size: 14.5px;
+    color: var(--muted);
+  }
+  .scarcity strong { color: var(--ink); font-weight: 600; }
+  .trust-list {
+    list-style: none;
+    border-top: 1.5px solid var(--ink);
+  }
+  .trust-list li {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    line-height: 1.35;
+    font-weight: 500;
+  }
+  .trust-list li::before {
+    content: '✓';
+    color: var(--ink);
+    margin-right: 16px;
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .trust-list li .sub {
+    display: block;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 4px;
+  }
+
+  /* Nav helper (subtle) */
+  .nav {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 100;
+  }
+  .nav a {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(17,17,17,0.2);
+    display: block;
+    transition: background 0.2s;
+  }
+  .nav a:hover { background: var(--ink); }
+
+  @media (max-width: 1200px) {
+    .slide { padding: 64px 56px; }
+    .grid-4, .pricing, .steps, .stats { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: 1fr; }
+    .cta-flex { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="#s1" title="Slide 1"></a>
+  <a href="#s2" title="Slide 2"></a>
+  <a href="#s3" title="Slide 3"></a>
+  <a href="#s4" title="Slide 4"></a>
+  <a href="#s5" title="Slide 5"></a>
+  <a href="#s6" title="Slide 6"></a>
+  <a href="#s7" title="Slide 7"></a>
+  <a href="#s8" title="Slide 8"></a>
+</nav>
+
+<!-- SLIDE 1: Hero -->
+<section class="slide center corners" id="s1">
+  <span class="br-left"></span>
+  <span class="br-right"></span>
+  <span class="num">01 / 08</span>
+  <h1 class="hero">Your new site is<br>already built.</h1>
+  <p class="hero-sub">See it before we talk. <span class="muted">The link is in your email.</span></p>
+  <div class="artifact">
+    <div class="artifact-bar"><span></span><span></span><span></span></div>
+    <div class="artifact-inner">
+      <div class="stamp">Personalized preview</div>
+      <div class="hed">[Practice Name], rebuilt.</div>
+      <div class="sub">Live at a private URL, ready to walk through.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 2: Why now -->
+<section class="slide" id="s2">
+  <span class="num">02 / 08</span>
+  <div class="eyebrow">Why now</div>
+  <h1>Search just changed.</h1>
+  <p class="body">
+    Eighteen months ago, patients searched Google for "dentist near me." Today, they also ask <strong>ChatGPT, Claude, Gemini, and Perplexity</strong>. Your current site was built for the old search. The new engines need a different kind of site to cite you back.
+  </p>
+  <div class="stats">
+    <div class="stat"><div class="name">ChatGPT</div><div class="role">800M+ weekly users asking for local recommendations</div></div>
+    <div class="stat"><div class="name">Gemini</div><div class="role">Embedded directly into Google search results</div></div>
+    <div class="stat"><div class="name">Claude</div><div class="role">Enterprise and consumer assistant for research</div></div>
+    <div class="stat"><div class="name">Perplexity</div><div class="role">Pure "answer engine," fastest-growing of the four</div></div>
+  </div>
+</section>
+
+<!-- SLIDE 3: What's broken -->
+<section class="slide" id="s3">
+  <span class="num">03 / 08</span>
+  <div class="eyebrow">What is wrong with most dental sites</div>
+  <h1>You have probably lived all three.</h1>
+  <div class="grid-3">
+    <div class="pain">
+      <h3>Your domain is held hostage.</h3>
+      <p>The vendor who built your site controls the URL your patients know. Leaving costs you the address.</p>
+    </div>
+    <div class="pain">
+      <h3>Your copy is everyone's copy.</h3>
+      <p>The same boilerplate runs on hundreds of practice sites. Google and AI engines do not cite duplicates.</p>
+    </div>
+    <div class="pain">
+      <h3>$200 to change a phone number.</h3>
+      <p>Every small edit is a ticket and an invoice. The site is a meter running quietly in the background.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4: What we built -->
+<section class="slide" id="s4">
+  <span class="num">04 / 08</span>
+  <div class="eyebrow">What we built for you</div>
+  <h1>One site. Four jobs.</h1>
+  <div class="grid-4">
+    <div class="pillar">
+      <div class="label">01 / Found</div>
+      <h3>Found.</h3>
+      <p>Built to be cited by Google and AI engines from day one. Structured data, schema, Google Business Profile, all wired in.</p>
+    </div>
+    <div class="pillar">
+      <div class="label">02 / Trusted</div>
+      <h3>Trusted.</h3>
+      <p>Real expertise on the page. Your credentials, your work, your voice. Not generic dental-marketing copy.</p>
+    </div>
+    <div class="pillar">
+      <div class="label">03 / Converted</div>
+      <h3>Converted.</h3>
+      <p>Booking, calls, forms, chat. Paths tuned to how patients actually decide before walking in.</p>
+    </div>
+    <div class="pillar">
+      <div class="label">04 / Managed</div>
+      <h3>Managed.</h3>
+      <p>A living asset. Updates, monitoring, and AEO work happen monthly. Not a one-time deliverable.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5: Monthly inclusions -->
+<section class="slide" id="s5">
+  <span class="num">05 / 08</span>
+  <div class="eyebrow">What is included, every month</div>
+  <h1>The monthly care.</h1>
+  <div class="grid-2">
+    <div class="feature">
+      <h3>Uptime monitored.</h3>
+      <p>Continuous. One-hour worst-case response.</p>
+    </div>
+    <div class="feature">
+      <h3>AEO + SEO tracked.</h3>
+      <p>Monthly review of how your practice appears in ChatGPT, Claude, Gemini, Perplexity, and Google.</p>
+    </div>
+    <div class="feature">
+      <h3>Two updates per month.</h3>
+      <p>New pages, edits, photos, hours. No back-and-forth. Tell us what changed.</p>
+    </div>
+    <div class="feature">
+      <h3>One article per month.</h3>
+      <p>Written around what is actually being searched. Not keyword-stuffed. Built to be cited.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6: Pricing -->
+<section class="slide" id="s6">
+  <span class="num">06 / 08</span>
+  <div class="eyebrow">Pricing</div>
+  <h1>Pick the package that fits.</h1>
+  <div class="pricing">
+    <div class="tier">
+      <h3>One-time</h3>
+      <div class="price">$3,999</div>
+      <div class="price-sub">+ $199/yr maintenance</div>
+      <p class="blurb">For practices that want a finished site and yearly upkeep. No monthly AEO work.</p>
+      <ul>
+        <li>Site built and delivered</li>
+        <li>Yearly maintenance and small detail changes</li>
+        <li>Page descriptions optimized and indexed once</li>
+      </ul>
+    </div>
+    <div class="tier recommended">
+      <div class="badge">Recommended</div>
+      <h3>Base</h3>
+      <div class="price">$499</div>
+      <div class="price-sub">onboarding + $199/mo</div>
+      <p class="blurb">For practices that want monthly visibility work handled.</p>
+      <ul>
+        <li>Site built and delivered</li>
+        <li>Two updates per month</li>
+        <li>AEO + SEO monitoring</li>
+        <li>One article per month</li>
+      </ul>
+    </div>
+    <div class="tier">
+      <h3>Base + Social</h3>
+      <div class="price">$499</div>
+      <div class="price-sub">onboarding + $499/mo</div>
+      <p class="blurb">For practices that want site growth plus steady social posting.</p>
+      <ul>
+        <li>Everything in Base</li>
+        <li>10 posts per month on Facebook + Instagram</li>
+        <li>Captions and visuals in your voice</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7: How it works -->
+<section class="slide" id="s7">
+  <span class="num">07 / 08</span>
+  <div class="eyebrow">How it works</div>
+  <h1>Four steps, async.</h1>
+  <div class="steps">
+    <div class="step">
+      <div class="num-step">/01</div>
+      <h3>Reply to the email.</h3>
+      <p>Tell us what to change. Or book a 15-minute call if you would rather talk.</p>
+    </div>
+    <div class="step">
+      <div class="num-step">/02</div>
+      <h3>We confirm scope.</h3>
+      <p>Which sections, which services, any custom asks. All in writing.</p>
+    </div>
+    <div class="step">
+      <div class="num-step">/03</div>
+      <h3>We build.</h3>
+      <p>Five to seven days to a working site on your domain.</p>
+    </div>
+    <div class="step">
+      <div class="num-step">/04</div>
+      <h3>You approve, we launch.</h3>
+      <p>Monitoring and monthly care start the day you go live.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8: CTA + scarcity + trust -->
+<section class="slide" id="s8">
+  <span class="num">08 / 08</span>
+  <div class="eyebrow">Next</div>
+  <h1>Want to see it live?</h1>
+  <div class="cta-flex">
+    <div>
+      <p class="body" style="margin-bottom: 28px;">
+        The personalized rebuild is already in your inbox. Reply with what you would change, or book a 15-minute call.
+      </p>
+      <a href="#" class="cta-btn">Reply to the email</a>
+      <p class="cta-secondary">Or <a href="#">book a 15-minute call</a>.</p>
+      <div class="scarcity">
+        We work with up to <strong>[N] dental practices per metro</strong> so no two sites look the same. [M] spots remaining in <strong>[City]</strong>.
+      </div>
+    </div>
+    <ul class="trust-list">
+      <li>
+        <div>
+          Month to month. No annual contract.
+          <span class="sub">Cancel anytime.</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          Your domain stays in your name.
+          <span class="sub">Always. From day one.</span>
+        </div>
+      </li>
+      <li>
+        <div>
+          We host, monitor, and maintain.
+          <span class="sub">Hosting and care are part of the service, not separate invoices.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+</body>
+</html>
