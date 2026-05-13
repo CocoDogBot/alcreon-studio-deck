@@ -24,7 +24,7 @@
     line-height: 1.4;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity;
     overflow-y: scroll;
     height: 100vh;
   }
@@ -77,6 +77,9 @@
     letter-spacing: -0.028em;
     line-height: 1.0;
     text-align: center;
+    text-wrap: balance;
+    max-width: 18ch;
+    margin: 0 auto;
   }
   h1 {
     font-size: clamp(44px, 4.4vw, 76px);
@@ -85,6 +88,13 @@
     line-height: 1.05;
     margin-bottom: 24px;
     max-width: 1500px;
+    text-wrap: balance;
+  }
+  h2 {
+    font-size: inherit;
+    font-weight: inherit;
+    letter-spacing: 0;
+    line-height: 1.4;
   }
   .hero-sub {
     margin-top: 28px;
@@ -148,6 +158,8 @@
   .artifact-link {
     display: contents;
     cursor: pointer;
+    color: inherit;
+    text-decoration: none;
   }
   .artifact-link .artifact {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -199,7 +211,7 @@
     margin-bottom: 16px;
     font-weight: 500;
   }
-  .pillar h3 {
+  .pillar h2 {
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 12px;
@@ -231,7 +243,7 @@
   .feature:nth-child(even) {
     padding-left: 64px;
   }
-  .feature h3 {
+  .feature h2 {
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 10px;
@@ -254,7 +266,7 @@
     border-top: 1.5px solid var(--ink);
     padding-top: 24px;
   }
-  .pain h3 {
+  .pain h2 {
     font-size: 26px;
     font-weight: 700;
     margin-bottom: 14px;
@@ -286,23 +298,18 @@
     border: 1.5px solid var(--ink);
     background: var(--card);
   }
-  .tier .badge {
-    position: absolute;
-    top: -13px;
-    left: 28px;
-    background: var(--ink);
-    color: white;
-    font-size: 11px;
-    padding: 6px 12px;
-    border-radius: 4px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-weight: 600;
-  }
-  .tier h3 {
+  .tier h2 {
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 12px;
+  }
+  .tier .popular {
+    font-size: 11px;
+    color: var(--ink);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 600;
   }
   .tier .price {
     font-size: 56px;
@@ -359,7 +366,7 @@
     margin-bottom: 18px;
     letter-spacing: 0.08em;
   }
-  .step h3 {
+  .step h2 {
     font-size: 26px;
     font-weight: 700;
     margin-bottom: 12px;
@@ -394,11 +401,52 @@
 
   /* CTA */
   .cta-flex {
-    display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap: 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
     margin-top: 32px;
-    align-items: start;
+  }
+  .trust-row {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    border-top: 1.5px solid var(--ink);
+    border-bottom: 1px solid var(--line);
+    padding: 28px 0;
+  }
+  .trust-row li {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .trust-row li::before {
+    content: '✓';
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+  .trust-row li strong {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .trust-row li span {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .cta-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 4px;
+    flex-wrap: wrap;
+  }
+  .cta-actions .cta-secondary {
+    margin-top: 0;
   }
   .cta-btn {
     display: inline-block;
@@ -427,53 +475,6 @@
     color: var(--muted);
   }
   .scarcity strong { color: var(--ink); font-weight: 600; }
-  .trust-list {
-    list-style: none;
-    border-top: 1.5px solid var(--ink);
-  }
-  .trust-list li {
-    padding: 22px 0;
-    border-bottom: 1px solid var(--line);
-    font-size: 19px;
-    display: flex;
-    align-items: center;
-    line-height: 1.35;
-    font-weight: 500;
-  }
-  .trust-list li::before {
-    content: '✓';
-    color: var(--ink);
-    margin-right: 16px;
-    font-weight: 700;
-    font-size: 18px;
-  }
-  .trust-list li .sub {
-    display: block;
-    color: var(--muted);
-    font-size: 14px;
-    font-weight: 400;
-    margin-top: 4px;
-  }
-
-  /* Nav helper (subtle) */
-  .nav {
-    position: fixed;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    z-index: 100;
-  }
-  .nav a {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: rgba(17,17,17,0.2);
-    display: block;
-    transition: background 0.2s;
-  }
-  .nav a:hover { background: var(--ink); }
 
   @media (max-width: 1200px) {
     .slide { padding: 64px 56px; }
@@ -481,29 +482,37 @@
     .grid-3 { grid-template-columns: 1fr; }
     .cta-flex { grid-template-columns: 1fr; }
   }
+  @media (max-width: 768px) {
+    body { scroll-snap-type: none; height: auto; }
+    .slide {
+      height: auto;
+      min-height: auto;
+      padding: 56px 24px;
+      scroll-snap-align: none;
+    }
+    .grid-4, .grid-2, .pricing, .steps, .stats { grid-template-columns: 1fr; gap: 32px; }
+    .feature:nth-child(odd) { border-right: none; padding-right: 0; }
+    .feature:nth-child(even) { padding-left: 0; }
+    .artifact { width: 100%; max-width: 100%; }
+    .corners::before, .corners::after,
+    .corners > .br-left::before, .corners > .br-right::before { display: none; }
+    .num { right: 24px; top: 24px; }
+    h1.hero { max-width: 100%; }
+    .cta-flex { gap: 32px; }
+    .trust-row { grid-template-columns: 1fr; gap: 20px; padding: 20px 0; }
+  }
 </style>
 </head>
 <body>
-
-<nav class="nav">
-  <a href="#s1" title="Slide 1"></a>
-  <a href="#s2" title="Slide 2"></a>
-  <a href="#s3" title="Slide 3"></a>
-  <a href="#s4" title="Slide 4"></a>
-  <a href="#s5" title="Slide 5"></a>
-  <a href="#s6" title="Slide 6"></a>
-  <a href="#s7" title="Slide 7"></a>
-  <a href="#s8" title="Slide 8"></a>
-</nav>
 
 <!-- SLIDE 1: Hero -->
 <section class="slide center corners" id="s1">
   <span class="br-left"></span>
   <span class="br-right"></span>
   <span class="num">01 / 08</span>
-  <h1 class="hero">We built Smile Dental<br>a website without asking.</h1>
+  <h1 class="hero">We built Smile Dental a website without asking.</h1>
   <p class="hero-sub">It's in your inbox, ready when you are. <span class="muted">Take a look and decide for yourself.</span></p>
-  <a href="https://template.studio.alcreonlabs.com/" target="_blank" rel="noopener" class="artifact-link">
+  <a href="https://template.studio.alcreonlabs.com/" target="_blank" rel="noopener noreferrer" class="artifact-link">
     <div class="artifact">
       <div class="artifact-bar"><span></span><span></span><span></span></div>
       <img src="mockup-preview.png" alt="Smile Dental mockup preview" class="artifact-img">
@@ -534,15 +543,15 @@
   <h1>We looked at Smile Dental's current site, and three things stood out.</h1>
   <div class="grid-3">
     <div class="pain">
-      <h3>Your homepage takes 4.8 seconds to load.</h3>
+      <h2>Your homepage takes 4.8 seconds to load</h2>
       <p>Mobile patients are bouncing before they see your name. Anything over three seconds and you've lost most of them.</p>
     </div>
     <div class="pain">
-      <h3>ChatGPT doesn't know you exist.</h3>
+      <h2>ChatGPT doesn't know you exist</h2>
       <p>When patients ask "best dentist in Vancouver," your practice isn't in the answer, though two of your competitors are.</p>
     </div>
     <div class="pain">
-      <h3>Your site can't take a booking.</h3>
+      <h2>Your site can't take a booking</h2>
       <p>Patients who'd rather not call are quietly choosing the practice that lets them book online.</p>
     </div>
   </div>
@@ -555,23 +564,23 @@
   <h1>One site, four jobs.</h1>
   <div class="grid-4">
     <div class="pillar">
-      <div class="label">01 / Found</div>
-      <h3>Found.</h3>
+      <div class="label">01</div>
+      <h2>Found.</h2>
       <p>Easy for Google to find, wired into your Google Business Profile, and built so your practice shows up whether patients search on Google or one of the AI assistants.</p>
     </div>
     <div class="pillar">
-      <div class="label">02 / Trusted</div>
-      <h3>Trusted.</h3>
+      <div class="label">02</div>
+      <h2>Trusted.</h2>
       <p>Real expertise on the page, in your voice, with your credentials and your work, not the generic dental-marketing copy every other practice is using.</p>
     </div>
     <div class="pillar">
-      <div class="label">03 / Converted</div>
-      <h3>Converted.</h3>
+      <div class="label">03</div>
+      <h2>Converted.</h2>
       <p>Booking, calls, forms, and chat, all tuned to how patients actually decide before walking in.</p>
     </div>
     <div class="pillar">
-      <div class="label">04 / Managed</div>
-      <h3>Managed.</h3>
+      <div class="label">04</div>
+      <h2>Managed.</h2>
       <p>A living website with updates, monitoring, and visibility work every month, not something built once and forgotten.</p>
     </div>
   </div>
@@ -584,19 +593,19 @@
   <h1>The monthly care.</h1>
   <div class="grid-2">
     <div class="feature">
-      <h3>If it goes down, we know.</h3>
+      <h2>If it goes down, we know.</h2>
       <p>Watched around the clock, with worst-case response inside an hour.</p>
     </div>
     <div class="feature">
-      <h3>How patients find you, tracked.</h3>
+      <h2>How patients find you, tracked.</h2>
       <p>Every month we check how you show up on Google and in ChatGPT, Claude, Gemini, and Perplexity, so we catch what's slipping before you do.</p>
     </div>
     <div class="feature">
-      <h3>Two updates per month.</h3>
+      <h2>Two updates per month.</h2>
       <p>New pages, edits, photos, hours, or whatever else needs to change. Just tell us, and we handle it with no back-and-forth.</p>
     </div>
     <div class="feature">
-      <h3>One article per month.</h3>
+      <h2>One article per month.</h2>
       <p>Written around what your patients are actually searching for, without the keyword stuffing every other site relies on, and built so the AI assistants will quote it.</p>
     </div>
   </div>
@@ -612,7 +621,7 @@
   </p>
   <div class="pricing">
     <div class="tier">
-      <h3>One-time</h3>
+      <h2>One-time</h2>
       <div class="price">$2,499</div>
       <div class="price-sub">+ $199/yr maintenance</div>
       <p class="blurb">A finished site, no monthly retainer. Best for practices not chasing growth.</p>
@@ -621,12 +630,12 @@
         <li>Google Business Profile setup</li>
         <li>Three launch articles</li>
         <li>Booking, forms, and phone wired in</li>
-        <li>Yearly maintenance and small edits</li>
+        <li>Up to one hour of edits a quarter (hours, photos, copy tweaks)</li>
       </ul>
     </div>
     <div class="tier recommended">
-      <div class="badge">Recommended</div>
-      <h3>Base</h3>
+      <div class="popular">Most practices pick this one</div>
+      <h2>Base</h2>
       <div class="price">$499</div>
       <div class="price-sub">onboarding + $249/mo</div>
       <p class="blurb">For practices that want to keep getting more visible every month, hands-off.</p>
@@ -639,7 +648,7 @@
       </ul>
     </div>
     <div class="tier">
-      <h3>Base + Social</h3>
+      <h2>Base + Social</h2>
       <div class="price">$999</div>
       <div class="price-sub">onboarding + $599/mo</div>
       <p class="blurb">For practices that want growth, more content, and social posting handled.</p>
@@ -663,23 +672,23 @@
   <h1>Four steps, and no phone calls needed.</h1>
   <div class="steps">
     <div class="step">
-      <div class="num-step">/01</div>
-      <h3>Reply to the email.</h3>
+      <div class="num-step">01</div>
+      <h2>Reply to the email.</h2>
       <p>Tell us what you'd change about Smile Dental's new site. Or book a 15-minute call if you'd rather talk.</p>
     </div>
     <div class="step">
-      <div class="num-step">/02</div>
-      <h3>We confirm the plan.</h3>
+      <div class="num-step">02</div>
+      <h2>We confirm the plan.</h2>
       <p>Which sections, which services, and any custom asks, all in writing.</p>
     </div>
     <div class="step">
-      <div class="num-step">/03</div>
-      <h3>We finalize.</h3>
+      <div class="num-step">03</div>
+      <h2>We finalize.</h2>
       <p>Most of the build is already done, so we just swap in your photos, your booking, and your team. Five to seven days until you're live on your domain.</p>
     </div>
     <div class="step">
-      <div class="num-step">/04</div>
-      <h3>You approve, we launch.</h3>
+      <div class="num-step">04</div>
+      <h2>You approve, we launch.</h2>
       <p>Monitoring and monthly care start the day you go live.</p>
     </div>
   </div>
@@ -691,36 +700,30 @@
   <div class="eyebrow">Next</div>
   <h1>Want to see it live?</h1>
   <div class="cta-flex">
-    <div>
-      <p class="body" style="margin-bottom: 28px;">
-        Smile Dental's rebuild is sitting in your inbox. The work is already done, so you're deciding whether to keep it, not whether to start a project. Look it over and let us know what you think, either by reply or with a 15-minute call.
-      </p>
-      <a href="#" class="cta-btn">Reply to the email</a>
-      <p class="cta-secondary">Or <a href="#">book a 15-minute call</a>.</p>
-      <div class="scarcity">
-        We work with up to <strong>8 dental practices per metro</strong> so no two sites look the same. <strong>4 spots remaining in Vancouver</strong>.
-      </div>
-    </div>
-    <ul class="trust-list">
+    <ul class="trust-row">
       <li>
-        <div>
-          Month to month, with no annual contract.
-          <span class="sub">Cancel anytime.</span>
-        </div>
+        <strong>Month to month, with no annual contract.</strong>
+        <span>Cancel anytime.</span>
       </li>
       <li>
-        <div>
-          Your domain stays in your name.
-          <span class="sub">Always, from day one.</span>
-        </div>
+        <strong>Your domain stays in your name.</strong>
+        <span>Always, from day one.</span>
       </li>
       <li>
-        <div>
-          We host, monitor, and maintain.
-          <span class="sub">Hosting and care are part of the service, not separate invoices.</span>
-        </div>
+        <strong>We host, monitor, and maintain.</strong>
+        <span>Hosting and care are part of the service, not separate invoices.</span>
       </li>
     </ul>
+    <p class="body" style="max-width: 1100px;">
+      Smile Dental's rebuild is sitting in your inbox. The work is already done, so you're deciding whether to keep it, not whether to start a project. Look it over and let us know what you think, either by reply or with a 15-minute call.
+    </p>
+    <div class="cta-actions">
+      <a href="mailto:hello@alcreonlabs.com?subject=Smile%20Dental%20rebuild" class="cta-btn">Reply to the email</a>
+      <span class="cta-secondary">Or <a href="https://cal.com/alcreonlabs/15min" target="_blank" rel="noopener noreferrer">book a 15-minute call</a>.</span>
+    </div>
+    <div class="scarcity">
+      We work with up to <strong>8 dental practices per metro</strong> so no two sites look the same. <strong>4 spots remaining in Vancouver</strong>.
+    </div>
   </div>
 </section>
 
