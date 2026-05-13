@@ -134,6 +134,27 @@
     width: 10px; height: 10px; border-radius: 50%;
     background: #D9D3C5;
   }
+  .artifact-img {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 30px);
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+  .artifact-link {
+    display: contents;
+    cursor: pointer;
+  }
+  .artifact-link .artifact {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .artifact-link:hover .artifact {
+    transform: translateY(-2px);
+    box-shadow: 0 32px 70px -20px rgba(0,0,0,0.22);
+  }
   .artifact-inner {
     text-align: center;
     padding: 40px 24px;
@@ -479,8 +500,14 @@
   <span class="br-left"></span>
   <span class="br-right"></span>
   <span class="num">01 / 08</span>
-  <h1 class="hero">We built you a website<br>without asking.</h1>
+  <h1 class="hero">We built Smile Dental<br>a website without asking.</h1>
   <p class="hero-sub">It's in your inbox. Look it over. <span class="muted">Then decide.</span></p>
+  <a href="https://template.studio.alcreonlabs.com/" target="_blank" rel="noopener" class="artifact-link">
+    <div class="artifact">
+      <div class="artifact-bar"><span></span><span></span><span></span></div>
+      <img src="mockup-preview.png" alt="Smile Dental mockup preview" class="artifact-img">
+    </div>
+  </a>
 </section>
 
 <!-- SLIDE 2: Why now -->
@@ -502,20 +529,20 @@
 <!-- SLIDE 3: What's broken -->
 <section class="slide" id="s3">
   <span class="num">03 / 08</span>
-  <div class="eyebrow">What is wrong with most dental sites</div>
-  <h1>You've probably lived all three.</h1>
+  <div class="eyebrow">What we found on your current site</div>
+  <h1>We looked at Smile Dental. Three things stood out.</h1>
   <div class="grid-3">
     <div class="pain">
-      <h3>Your domain is held hostage.</h3>
-      <p>The vendor who built your site controls the URL your patients know. Leaving costs you the address.</p>
+      <h3>Your homepage takes 4.8 seconds to load.</h3>
+      <p>Mobile patients are bouncing before they see your name. Anything over three seconds and you've lost most of them.</p>
     </div>
     <div class="pain">
-      <h3>Your copy is everyone's copy.</h3>
-      <p>The same copy runs on hundreds of practice sites. Google and the AI assistants won't quote duplicates.</p>
+      <h3>ChatGPT doesn't know you exist.</h3>
+      <p>When patients ask "best dentist in Vancouver," your practice isn't in the answer. Two of your competitors are.</p>
     </div>
     <div class="pain">
-      <h3>$200 to change a phone number.</h3>
-      <p>Every small edit is a ticket and an invoice. The site is a meter running quietly in the background.</p>
+      <h3>Your site can't take a booking.</h3>
+      <p>Patients who'd rather not call are quietly choosing the practice that lets them book online.</p>
     </div>
   </div>
 </section>
@@ -637,7 +664,7 @@
     <div class="step">
       <div class="num-step">/01</div>
       <h3>Reply to the email.</h3>
-      <p>Tell us what to change. Or book a 15-minute call if you'd rather talk.</p>
+      <p>Tell us what you'd change about Smile Dental's new site. Or book a 15-minute call if you'd rather talk.</p>
     </div>
     <div class="step">
       <div class="num-step">/02</div>
@@ -665,12 +692,12 @@
   <div class="cta-flex">
     <div>
       <p class="body" style="margin-bottom: 28px;">
-        The personalized rebuild is in your inbox. The work is done. You're deciding whether to keep it, not whether to start a project. Look it over, then let us know. Reply, or book a 15-minute call.
+        Smile Dental's rebuild is in your inbox. The work is done. You're deciding whether to keep it, not whether to start a project. Look it over, then let us know. Reply, or book a 15-minute call.
       </p>
       <a href="#" class="cta-btn">Reply to the email</a>
       <p class="cta-secondary">Or <a href="#">book a 15-minute call</a>.</p>
       <div class="scarcity">
-        We work with up to <strong>8 dental practices per metro</strong> so no two sites look the same. [M] spots remaining in <strong>[City]</strong>.
+        We work with up to <strong>8 dental practices per metro</strong> so no two sites look the same. <strong>4 spots remaining in Vancouver</strong>.
       </div>
     </div>
     <ul class="trust-list">
